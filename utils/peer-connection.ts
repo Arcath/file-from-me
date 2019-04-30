@@ -36,7 +36,18 @@ export class PeerConnection{
     this.peerConnection = Peer({
       initiator,
       trickle: false,
-      channelName: dataChannel
+      channelName: dataChannel,
+      config: {
+        iceServers: [
+          { urls: 'stun:stun.l.google.com:19302' },
+          { urls: 'stun:global.stun.twilio.com:3478?transport=udp' },
+          {
+            url: 'turn:turn.anyfirewall.com:443?transport=tcp',
+            credential: 'webrtc',
+            username: 'webrtc'
+          }
+        ]
+      }
     })
 
     this.peerConnection.on('signal', (data) => {
