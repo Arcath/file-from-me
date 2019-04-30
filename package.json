@@ -1,5 +1,5 @@
 {
-  "name": "send-file",
+  "name": "file-from-me",
   "version": "0.0.0",
   "description": "Send files using web-rtc",
   "main": "index.js",
