@@ -4,6 +4,9 @@ import {withRouter} from 'next/router'
 import filesize from 'filesize'
 import {encode, decode} from 'base-64'
 import Link from 'next/link'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faCircleNotch} from '@fortawesome/fontawesome-free-solid'
+import styled from '@emotion/styled'
 
 import {log} from '../utils/log'
 import {PeerConnection} from '../utils/peer-connection'
@@ -17,6 +20,11 @@ interface IndexPageProps{
     }
   }
 }
+
+const Spinner = styled(FontAwesomeIcon)`
+  font-size:60px;
+  margin:30px;
+`
 
 /** 
  * Maximum chunk size for the file transfers.
@@ -230,8 +238,12 @@ class IndexPage extends React.Component<IndexPageProps, {
       return <FileSelect onSelectFile={(file: FileList) => this.setState({file})} />
     }
 
-    if(!this.state.connectedToPeer){
+    if(!this.state.connectedToPeer && !this.state.peer){
       return <Await message={`Preparing to send ${this.state.file[0].name}. Give peer address ${location.href}file/${this.state.uuid}`} />
+    }
+
+    if(!this.state.connectedToPeer){
+      return <Await message="Connecting to peer" />
     }
 
     if(!this.state.complete){
@@ -292,5 +304,6 @@ const FileSelect: React.FunctionComponent<{
 const Await: React.FunctionComponent<{message: string}> = ({message}) => {
   return <div>
     {message}
+    <Spinner icon={faCircleNotch} spin />
   </div>
 }
