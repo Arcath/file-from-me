@@ -10,6 +10,8 @@ const nextHandler = nextApp.getRequestHandler()
 
 let sockets = {}
 
+const port = process.env.FFM_PORT ? process.env.FFM_PORT : 3000
+
 io.on('connect', (socket) => {
   let id = uuid()
 
@@ -58,8 +60,8 @@ nextApp.prepare().then(() => {
     return nextHandler(req, res)
   })
 
-  server.listen(3000, (err) => {
+  server.listen(port, (err) => {
     if(err) throw err
-    console.log('Listening on port 3000')
+    console.log(`Listening on port ${port}`)
   })
 })
