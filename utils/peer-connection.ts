@@ -6,6 +6,9 @@ import Peer from 'simple-peer'
 
 type MessageHandler = (data: any) => void
 
+/**
+ * A helper class that handles creating and maintaing the WebRTC connection.
+ */
 export class PeerConnection{
   socket: SocketIOClient.Socket
   localUUID: string
@@ -13,7 +16,18 @@ export class PeerConnection{
   peerConnection: Peer.Instance
   handlers: {[event: string]: MessageHandler}
 
-  constructor(initiator: boolean, socket: SocketIOClient.Socket, localUUID: string, remoteUUID: string, dataChannel: string){
+  constructor(
+    /** Is this the _host_ browser. */
+    initiator: boolean,
+    /** The socket.io instance. */
+    socket: SocketIOClient.Socket,
+    /** The UUID for this browser. */
+    localUUID: string,
+    /** The UUID for the browser to connect to. */
+    remoteUUID: string,
+    /** The data channel name to use. */
+    dataChannel: string
+  ){
     this.socket = socket
     this.localUUID = localUUID
     this.remoteUUID = remoteUUID
