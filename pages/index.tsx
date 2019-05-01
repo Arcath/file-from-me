@@ -13,6 +13,8 @@ import {PeerConnection} from '../utils/peer-connection'
 
 import {Container} from '../utils/styles'
 
+import config from '../config.json'
+
 interface IndexPageProps{
   router: {
     query: {
@@ -221,7 +223,7 @@ class IndexPage extends React.Component<IndexPageProps, {
 
   render(){
     return <Container>
-      <h1>File From Me</h1>
+      <h1>{config.title}</h1>
       {this.props.router.query.file ? this.receiver() : this.sender()}
       <Link href="/about">
         <a>About</a>

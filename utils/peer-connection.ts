@@ -35,7 +35,6 @@ export class PeerConnection{
 
     this.peerConnection = Peer({
       initiator,
-      trickle: false,
       channelName: dataChannel,
       config: {
         iceServers: [
