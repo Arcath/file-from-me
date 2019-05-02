@@ -7,6 +7,7 @@ import Link from 'next/link'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCircleNotch} from '@fortawesome/fontawesome-free-solid'
 import styled from '@emotion/styled'
+import Head from 'next/head'
 
 import {log} from '../utils/log'
 import {PeerConnection} from '../utils/peer-connection'
@@ -223,6 +224,9 @@ class IndexPage extends React.Component<IndexPageProps, {
 
   render(){
     return <Container>
+      <Head>
+        <title>{config.title}</title>
+      </Head>
       <h1>{config.title}</h1>
       {this.props.router.query.file ? this.receiver() : this.sender()}
       <Link href="/about">

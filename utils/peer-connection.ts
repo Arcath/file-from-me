@@ -4,6 +4,8 @@ import Peer from 'simple-peer'
 
 //const log = logFn('PeerConnection')
 
+import config from '../config.json'
+
 type MessageHandler = (data: any) => void
 
 /**
@@ -37,10 +39,7 @@ export class PeerConnection{
       initiator,
       channelName: dataChannel,
       config: {
-        iceServers: [
-          {urls:'stun:stun.l.google.com:19302'},
-          {urls:'stun:stun1.l.google.com:19302'}
-        ]
+        iceServers: config.iceServers
       }
     })
 
