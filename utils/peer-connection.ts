@@ -44,28 +44,14 @@ export class PeerConnection{
     })
 
     this.peerConnection.on('signal', (data) => {
-      if(data.type === 'offer'){
-        this.socket.emit('connection-offer', {
-          local: this.localUUID,
-          remote: this.remoteUUID,
-          signal: data
-        })
-      }
-
-      if(data.type === 'answer'){
-        this.socket.emit('connection-answer', {
-          local: this.localUUID,
-          remote: this.remoteUUID,
-          signal: data
-        })
-      }
+      this.socket.emit('signal', {
+        local: this.localUUID,
+        remote: this.remoteUUID,
+        signal: data
+      })
     })
 
-    this.socket.on('connection-offer', (data: {signal: Peer.SignalData}) => {
-      this.peerConnection.signal(data.signal)
-    })
-
-    this.socket.on('connection-answer', (data: {signal: Peer.SignalData}) => {
+    this.socket.on('signal', (data: {signal: Peer.SignalData}) => {
       this.peerConnection.signal(data.signal)
     })
 

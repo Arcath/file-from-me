@@ -35,19 +35,13 @@ io.on('connect', (socket) => {
     }
   })
 
-  socket.on('connection-offer', (data) => {
-    console.log(`forwarding offer from ${data.local} to ${data.remote}`)
-    sockets[data.remote].emit('connection-offer', data)
-  })
-
-  socket.on('connection-answer', (data) => {
-    console.log(`sending answer from ${data.local} to ${data.remote}`)
-    sockets[data.remote].emit('connection-answer', data)
-  })
-
-  socket.on('open-data-channel', (data) => {
-    console.log('Opening data channel')
-    sockets[data.peer].emit('open-data-channel')
+  socket.on('signal', (data) => {
+    console.log(`Passing signal to ${data.remote}`)
+    if(!sockets[data.remote]){
+      socket.emit('bad-file-uuid')
+    }else{
+      sockets[data.remote].emit('signal', data)
+    }
   })
 })
 
